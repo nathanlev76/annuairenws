@@ -1,20 +1,3 @@
-<?php
-require_once("class/db.php");
-$db = new Db();
-$test = $db->connect();
-print_r($test);
-
-$errormessage = "";
-require_once("class/loginuser.php");
-if(isset($_POST["mail"]) && isset($_POST["password"])){
-    $mail = $_POST["mail"];
-    $password = $_POST["password"]; 
-    $user = new Login($mail, $password);
-    $test = $user->getUserData();
-    $errormessage = $test;
-}
-
-?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -32,7 +15,7 @@ if(isset($_POST["mail"]) && isset($_POST["password"])){
     <img id=nwslogo src="assets/logo/banniere_nws.svg" height="150" width="300"></img>
     <form action="" method="post" class="login-form">
         <div class="login-input-mail">
-            <input type="email" name="mail" id="mail" placeholder="Adresse mail" value="" required>
+            <input type="email" name="mail" id="mail" placeholder="Adresse mail" value=""required>
         </div>
         <div class="login-input">
             <input type="password" name="password" id="password" placeholder="Mot de passe" value="" required>
@@ -41,7 +24,6 @@ if(isset($_POST["mail"]) && isset($_POST["password"])){
             <input type="submit" value="Se connecter">
         </div>
     </form>
-    <p><br><?=$errormessage?></p>
 </div>
 </body>
 </html>
