@@ -7,14 +7,31 @@ class Login extends Db
 
     public function __construct(string $email, string $motdepasse){
         $this->mail = $email;
-        $this->password = password_hash($motdepasse, PASSWORD_DEFAULT);
+        $this->password = $motdepasse;
     }
 
-    public function getUserData(){
+    public function checkLogin(){
         $mail = $this->mail;
         $password = $this->password;
-
-        return $password;
+        $sql = new Sql();
+        $result = $sql->sqlrequest('SELECT * FROM users WHERE mail = "'.$mail.'"');
+        if(!empty($result))
+        {
+            foreach($result as $elem)
+            {
+                $dbpassword = $elem["password"];
+            }
+            if(password_verify($password, $dbpassword))
+            {
+                $loginResult = true;
+            }
+            else
+            {
+                $loginResult = false;
+            }
+        }
+        
+        return $loginResult;
     }
 }
 

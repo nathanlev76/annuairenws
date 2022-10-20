@@ -7,6 +7,11 @@
     padding: 0;
 }
 
+body{
+    background-image: url("assets/background_accueil.jpg");
+    background-size: 100%;
+}
+
 :root 
 {
     --nws-red: #e94a34;
@@ -20,20 +25,26 @@ h1{
 
 #conteneur{
     padding: 100px;
-    /**background-color: #fec800;**/
-    height: 300px;
-    width: 300px;
+    background-color: white;
+    height: 350px;
+    width: 350px;
     margin-left: auto;
     margin-right: auto;
     border-radius: 15px;
     border: 1px solid black;
     display: flex;
     flex-direction: column;
-    margin-top: 7%;
+    margin-top: 6%;
+}
+
+input:focus {
+    outline-color: rgba(0, 165, 165, .7)
 }
 
 #conteneur p{
-    color: #00a5a5;
+    color: red;
+    font-family: "Fira Sans";
+    text-align: center;
 }
 
 
@@ -42,14 +53,28 @@ form{
     margin-right: auto;
 }
 
-input {
-    max-width: 300px;
+#nwslogo{
+    margin-top: -50px;
+}
+
+.login input{
     padding: 1rem;
-    width: 15rem;
+    width: 19rem;
     font-family: "Fira Sans";
     margin-bottom: 10px;
-    border: 1px solid black;
-    outline: none;
+    border: 1px solid grey;
+    border-radius: 10px;
+}
+
+#checkbox{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+label{
+    font-family: "Fira Sans";
+    text-align: center;
+    font-size: 80%;
 }
 
 
@@ -59,52 +84,23 @@ input {
     border: none;
     width: 100%;
     cursor: pointer;
+    font-size: 110%;
+    padding: 0.8rem;
+    border-radius: 10px;
+    transition: .3s;
 }
 
+.login-btn input:hover{
+    transform: scale(1.05);
+}
 
 
 .login-input-mail{
     margin-top: 60px;
 }
 
-
-@media (max-width:400px){
-    #conteneur{
-        border: none;
-        padding: 0;
-    }
-    input{
-        height: 1%;
-        width: 10%;
-    }
-}
-
-@media(max-width:500px){
-    #conteneur{
-        border: none;
-        padding: 0;
-    }
-    form{
-        transform: scale(90%);
-    }
-}
-
-@media(max-width:800px){
-    #conteneur{
-        border: none;
-        padding: 0;
-    }
-    form{
-        transform: scale(140%);
-    }
-}
-
-@media(max-width:1000px){
-    #conteneur{
-        border: none;
-        padding: 0;
-    }
-    form{
-        transform: scale(140%);
+@media (max-width: 768px) {
+    body{
+        padding: 2rem 0
     }
 }

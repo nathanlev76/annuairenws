@@ -7,6 +7,7 @@ class Db
             $username = "root";
             $password = "";
             $dbh = new PDO('mysql:host=localhost;dbname=annuaire', $username, $password);
+            return $dbh;
         }catch (PDOException $e){
             print "Erreur de la base de données: " . $e->getMessage() . "</br>";
             die();
@@ -15,17 +16,26 @@ class Db
 }
 
 class Sql extends Db{
-    public function sqlrequest(){
-        $pdo = connect();
+    public function sqlrequest($requete){
+        $pdo = $this->connect();
 
         $sql = $requete;
     
         $query = $pdo->prepare($sql);
-    
-        $query->execute();
+        try{
+            $request = $query->execute();
+        }
+        catch(PDOException $e){
+            return False;
+        }
     
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
-    
-        return $result;
+        if($request){
+            return $result;
+        }
+        else{
+            return False;
+        }
+
     }
 }

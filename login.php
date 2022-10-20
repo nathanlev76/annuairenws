@@ -1,8 +1,5 @@
 <?php
 require_once("class/db.php");
-$db = new Db();
-$test = $db->connect();
-print_r($test);
 
 $errormessage = "";
 require_once("class/loginuser.php");
@@ -10,9 +7,20 @@ if(isset($_POST["mail"]) && isset($_POST["password"])){
     $mail = $_POST["mail"];
     $password = $_POST["password"]; 
     $user = new Login($mail, $password);
-    $test = $user->getUserData();
-    $errormessage = $test;
+    $check = $user->checkLogin();
+    if($check)
+    {
+        header("Location: style.css");
+        $test = 1;
+    }
+    else
+    {
+        $errormessage = "E-Mail ou Mot de passe incorrect !";
+    }
 }
+
+
+
 
 ?>
 
@@ -31,15 +39,18 @@ if(isset($_POST["mail"]) && isset($_POST["password"])){
 <div id="conteneur">
     <img id=nwslogo src="assets/logo/banniere_nws.svg" height="150" width="300"></img>
     <form action="" method="post" class="login-form">
-        <div class="login-input-mail">
-            <input type="email" name="mail" id="mail" placeholder="Adresse mail" value="" required>
+        <div class="login-input-mail login">
+            <input type="email" name="mail" id="mail" placeholder="Adresse mail" value="<?php echo isset($_POST['mail']) ? $_POST['mail'] : ''?>" required>
         </div>
-        <div class="login-input">
-            <input type="password" name="password" id="password" placeholder="Mot de passe" value="" required>
+        <div class="login-input login">
+            <input type="password" name="password" id="password" placeholder="Mot de passe" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>" required>
         </div>
-        <div class="login-btn">
+        <input id="checkbox" name="checkbox" type="checkbox">
+        <label for="checkbox">Se souvenir de moi</label>
+        <div class="login-btn login">
             <input type="submit" value="Se connecter">
         </div>
+
     </form>
     <p><br><?=$errormessage?></p>
 </div>
