@@ -1,8 +1,15 @@
 <?php
+session_start();
 require_once("class/db.php");
-
-$errormessage = "";
 require_once("class/loginuser.php");
+$errormessage = "";
+
+
+if (isset($_SESSION["mail"]))
+{
+    header("location: home.php");
+}
+
 if(isset($_POST["mail"]) && isset($_POST["password"])){
     $mail = $_POST["mail"];
     $password = $_POST["password"]; 
@@ -10,18 +17,14 @@ if(isset($_POST["mail"]) && isset($_POST["password"])){
     $check = $user->checkLogin();
     if($check)
     {
-        header("Location: style.css");
-        $test = 1;
+        $_SESSION["mail"] = $mail;
+        header("Location: home.php");
     }
     else
     {
         $errormessage = "E-Mail ou Mot de passe incorrect !";
     }
 }
-
-
-
-
 ?>
 
 <!DOCTYPE html>
