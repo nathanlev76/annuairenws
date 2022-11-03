@@ -221,7 +221,7 @@ else
               <td>$prenom $nom</td>
               <td>$choixspe</td>
               <td>
-                <button type='button' class='btn btn-success btn-sm'>Voir le contact <i class='fas fa-user'></i></button>
+                <a href='info.php?id=$id'><button type='button' class='btn btn-success btn-sm'>Voir le contact <i class='fas fa-user'></i></button></a>
                 <a href='edit.php?id=$id'><button type='button' class='btn btn-primary btn-sm'>Modifier <i class='fas fa-pen'></i></button></a>
                 <a href='delete.php?id=$id'><button type='button' class='btn btn-danger btn-sm'>Supprimer <i class='fas fa-trash'></i></button></a>
               </td>
@@ -230,4 +230,4 @@ else
         ?>
     </table>
 </div>
-<a href="add.php"><button type='button' class='btn btn-success addbutton'><i class='fas fa-plus'></i> Ajouer un contact</button><a>
+<a href="add.php"><button type='button' class='btn btn-success addbutton'><i class='fas fa-plus'></i> Ajouter un contact</button><a>
