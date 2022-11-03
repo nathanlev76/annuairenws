@@ -74,3 +74,10 @@ table button{
     margin-top: 20px;
 }
 
+#trierdiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;    
+}
+
