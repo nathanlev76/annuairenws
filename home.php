@@ -52,20 +52,29 @@ $result = $test->get('SELECT * FROM students');
 <div class="searchbar">
     <form method="GET">
         <input type="search" name="search" placeholder="Rechercher un contact">
-        <input type="submit">
+        <input class="btn btn-primary btn-sm" type="submit" value="Chercher">
     </form>
 </div>
 
-<div class="errormessage">
+
 <?php
     if(!$result)
     {
-        echo "<div class='alert alert-danger' role='alert'>Aucun résultat pour la recherche: $search</div>";
+        echo "<div class='errormessage'><div class='alert alert-danger' role='alert'>Aucun résultat pour la recherche: $search</div></div>";
     }
 ?>
-</div>
 
-<div id="testdiv">
+<?php
+if(!$result)
+{
+    echo '<div id="testdiv" hidden>';
+}
+else
+{
+    echo '<div id="testdiv">';  
+}
+
+?>
     <table class="table table-hover">
     <thead>
         <tr class="table-dark">

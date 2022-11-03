@@ -3,10 +3,15 @@
 class Db
 {
     public function connect(){
+        $getfile = file_get_contents('database.json');
+        $jsonfile = json_decode($getfile);
+        $array = json_decode(json_encode($jsonfile), true);
+
+        $dbusername = $array["username"];
+        $dbpassword = $array["password"];
+        $dbhost = $array["host"];
         try{
-            $username = "root";
-            $password = "";
-            $dbh = new PDO('mysql:host=localhost;dbname=annuaire', $username, $password);
+            $dbh = new PDO("mysql:host=$dbhost;dbname=annuaire", $dbusername, $dbpassword);
             return $dbh;
         }catch (PDOException $e){
             print "Erreur de la base de données: " . $e->getMessage() . "</br>";
