@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Annuaire NWS: Ajouter</title>
+    <title>Annuaire NWS: Modifier</title>
     <link rel="icon" type="image/x-icon" href="assets/logo/nws_logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
@@ -14,7 +14,7 @@
 <a href="home.php"><h1><img src="assets/logo/nws_logo.png" height=55 width=55>Annuaire NWS</h1></a>
 <?php
 require_once("class/db.php");
-require_once("class/addcontact.php");
+require_once("class/editcontact.php");
 session_start();
 if (isset($_SESSION["mail"]))
 {
@@ -40,36 +40,36 @@ if(isset($_POST["submit"]))
     $spe = $_POST["spe"];
     if(empty($name))
     {
-        $mess = "Le champ 'Prénom' est requis pour envoyer le message !";
+        $mess = "Le champ 'Prénom' est requis pour ajouter le contact !";
     }
     elseif(empty($lastname))
     {
-        $mess = "Le champ 'Nom' est requis pour envoyer le message";
+        $mess = "Le champ 'Nom' est requis pour ajouter le contact !";
     }
     elseif(empty($gender))
     {
-        $mess = "Le champ 'Genre' est requis pour envoyer le message";
+        $mess = "Le champ 'Genre' est requis pour ajouter le contact !";
     }
     elseif(empty($age))
     {
-        $mess = "Le champ 'Age' est requis pour envoyer le message";
+        $mess = "Le champ 'Age' est requis pour ajouter le contact !";
     }
     elseif(empty($phone))
     {
-        $mess = "Le champ 'Téléphone' est requis pour envoyer le message";
+        $mess = "Le champ 'Téléphone' est requis pour ajouter le contact !";
     }
     elseif(empty($mail))
     {
-        $mess = "Le champ 'E-Mail' est requis pour envoyer le message";
+        $mess = "Le champ 'E-Mail' est requis pour ajouter le contact !";
     }
     elseif(empty($spe))
     {
-        $mess = "Le champ 'Spécialité' est requis pour envoyer le message";
+        $mess = "Le champ 'Spécialité' est requis pour ajouter le contact !";
     }
     else
     {
         $user = new CreateContact($name, $lastname, $gender, $age, $phone, $mail, $spe);
-        $addDb = $user->addContact();
+        $addDb = $user->addContact($id);
         header("location: home.php");
 
     }

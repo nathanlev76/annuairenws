@@ -222,7 +222,7 @@ else
               <td>$choixspe</td>
               <td>
                 <button type='button' class='btn btn-success btn-sm'>Voir le contact <i class='fas fa-user'></i></button>
-                <button type='button' class='btn btn-primary btn-sm'>Modifier <i class='fas fa-pen'></i></button>
+                <a href='edit.php?id=$id'><button type='button' class='btn btn-primary btn-sm'>Modifier <i class='fas fa-pen'></i></button></a>
                 <a href='delete.php?id=$id'><button type='button' class='btn btn-danger btn-sm'>Supprimer <i class='fas fa-trash'></i></button></a>
               </td>
               </tr>";
