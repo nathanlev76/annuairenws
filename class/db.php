@@ -31,7 +31,6 @@ class sqlRequest extends Db{
             $request = $query->execute();
         }
         catch(PDOException $e){
-            echo $e;
             return False;
         }
     

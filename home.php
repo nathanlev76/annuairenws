@@ -32,23 +32,54 @@ if (isset($_GET["search"]))
         $search = $_GET["search"];
         $test = new sqlRequest();
         $result = $test->get("SELECT * FROM students WHERE prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search'");
-        if(!isset($_GET["filter"]) OR $_GET["filter"] === "id")
+        if(!isset($_GET['filter']) OR $_GET['filter'] === "none")
+        {   
+            if(!isset($_GET["sort"]) OR $_GET["sort"] === "id")
+            {
+                $result = $test->get("SELECT * FROM students WHERE prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search' ORDER BY id ASC");
+            }
+            else if($_GET["sort"] == "a-z"){
+                $result = $test->get("SELECT * FROM students WHERE prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search' ORDER BY prenom ASC");
+            }
+            else if($_GET["sort"] == "z-a"){
+                $result = $test->get("SELECT * FROM students WHERE prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search' ORDER BY prenom DESC");
+            }
+            else if($_GET["sort"] == "spe"){
+                $result = $test->get("SELECT * FROM students WHERE prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search' ORDER BY choixspe ASC");
+            }
+        }
+        else 
         {
-            $result = $test->get("SELECT * FROM students WHERE prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search' ORDER BY id ASC");
-        }
-        else if($_GET["filter"] == "a-z"){
-            $result = $test->get("SELECT * FROM students WHERE prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search' ORDER BY prenom ASC");
-        }
-        else if($_GET["filter"] == "z-a"){
-            $result = $test->get("SELECT * FROM students WHERE prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search' ORDER BY prenom DESC");
-        }
-        else if($_GET["filter"] == "spe"){
-            $result = $test->get("SELECT * FROM students WHERE prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search' ORDER BY choixspe ASC");
+            $filter = $_GET["filter"];
+            if(!isset($_GET["sort"]) OR $_GET["sort"] === "id")
+            {
+                $result = $test->get("SELECT * FROM students WHERE choixspe = '$filter' AND prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search' ORDER BY id ASC");
+            }
+            else if($_GET["sort"] == "a-z"){
+                $result = $test->get("SELECT * FROM students WHERE choixspe = '$filter' AND prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search' ORDER BY prenom ASC");
+            }
+            else if($_GET["sort"] == "z-a"){
+                $result = $test->get("SELECT * FROM students WHERE choixspe = '$filter' AND prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search' ORDER BY prenom DESC");
+            }
+            else if($_GET["sort"] == "spe"){
+                $result = $test->get("SELECT * FROM students WHERE choixspe = '$filter' AND prenom LIKE '$search' OR nom LIKE '$search' or CONCAT(prenom, ' ', nom) LIKE '$search' ORDER BY choixspe ASC");
+            }            
         }
     }
     else
     {
-        if(isset($_GET["filter"]))
+        if(isset($_GET["sort"]) && !isset($_GET["filter"]))
+        {
+            $sort = $_GET["sort"];
+            header("location: home.php?sort=$sort");
+        }
+        else if(isset($_GET["sort"]) && isset($_GET["filter"]))
+        {
+            $sort = $_GET["sort"];
+            $filter = $_GET["filter"];
+            header("location: home.php?sort=$sort&filter=$filter");
+        }
+        else if(!isset($_GET["sort"]) && isset($_GET["filter"]))
         {
             $filter = $_GET["filter"];
             header("location: home.php?filter=$filter");
@@ -65,18 +96,38 @@ else
 $test = new sqlRequest();
 //$result = $test->get("INSERT INTO `students` (`id`, `sexe`, `prenom`, `nom`, `telephone`, `email`, `choixspe`) VALUES (NULL, 'M', 'Ugo', 'Rastell', '0102030405', 'urastell@normandiewebschool.fr', 'Développement')");
 
-if(!isset($_GET["filter"]) OR $_GET["filter"] === "id")
+if(!isset($_GET["filter"]) OR $_GET["filter"] === "none")
 {
-    $result = $test->get('SELECT * FROM students ORDER BY id ASC');
+    if(!isset($_GET["sort"]) OR $_GET["sort"] === "id")
+    {
+        $result = $test->get('SELECT * FROM students ORDER BY id ASC');
+    }
+    else if($_GET["sort"] == "a-z"){
+        $result = $test->get('SELECT * FROM students ORDER BY prenom ASC');
+    }
+    else if($_GET["sort"] == "z-a"){
+        $result = $test->get('SELECT * FROM students ORDER BY prenom DESC');
+    }
+    else if($_GET["sort"] == "spe"){
+        $result = $test->get('SELECT * FROM students ORDER BY choixspe ASC');
+    }
 }
-else if($_GET["filter"] == "a-z"){
-    $result = $test->get('SELECT * FROM students ORDER BY prenom ASC');
-}
-else if($_GET["filter"] == "z-a"){
-    $result = $test->get('SELECT * FROM students ORDER BY prenom DESC');
-}
-else if($_GET["filter"] == "spe"){
-    $result = $test->get('SELECT * FROM students ORDER BY choixspe ASC');
+else
+{ 
+    $filter = $_GET["filter"];
+    if(!isset($_GET["sort"]) OR $_GET["sort"] === "id")
+    {
+        $result = $test->get("SELECT * FROM students WHERE choixspe = '$filter' ORDER BY id ASC");
+    }
+    else if($_GET["sort"] == "a-z"){
+        $result = $test->get("SELECT * FROM students WHERE choixspe = '$filter' ORDER BY prenom ASC");
+    }
+    else if($_GET["sort"] == "z-a"){
+        $result = $test->get("SELECT * FROM students WHERE choixspe = '$filter' ORDER BY prenom DESC");
+    }
+    else if($_GET["sort"] == "spe"){
+        $result = $test->get("SELECT * FROM students WHERE choixspe = '$filter' ORDER BY choixspe ASC");
+    }   
 }
 }
 ?>
@@ -89,22 +140,33 @@ else if($_GET["filter"] == "spe"){
         <input class="btn btn-primary btn-sm" type="submit" value="Chercher">
     </form>
     <div id="trierdiv">
-        <label for="trier">Trier: </label>
-        <select id='trier' name='filter' form='searchform'>
-            <option value="id"<?php if($_GET["filter"] === "spe" OR !isset($_GET["filter"])){echo "selected";}?>>ID</option>
-            <option value="a-z" <?php if($_GET["filter"] === "a-z"){echo "selected";}?>>Ordre alphabétique (A-Z)</option>
-            <option value="z-a" <?php if($_GET["filter"] === "z-a"){echo "selected";}?>>Ordre alphabétique (Z-A)</option>
-            <option value="spe" <?php if($_GET["filter"] === "spe"){echo "selected";}?>>Spécialités</option>
-            ?>
+        <label for="trier">Trier par:</label>
+        <select id='trier' name='sort' form='searchform'>
+            <option value="id">ID</option>
+            <option value="a-z" <?php if(isset($_GET["sort"])){if($_GET["sort"] === "a-z"){echo "selected";}}?>>Ordre alphabétique (A-Z)</option>
+            <option value="z-a" <?php if(isset($_GET["sort"])){if($_GET["sort"] === "z-a"){echo "selected";}}?>>Ordre alphabétique (Z-A)</option>
+            <option value="spe" <?php if(isset($_GET["sort"])){if($_GET["sort"] === "spe"){echo "selected";}}?>>Spécialités</option>
+        </select>
+        <label for="filtrer">Filtre:</label>
+        <select id='filtrer' name='filter' form='searchform'>
+            <option value="none">Aucun</option>
+            <option value="dev" <?php if(isset($_GET["filter"])){if($_GET["filter"] === "dev"){echo "selected";}}?>>Développement Web</option>
+            <option value="cm" <?php if(isset($_GET["filter"])){if($_GET["filter"] === "cm"){echo "selected";}}?>>Community Management</option>
+            <option value="marketing" <?php if(isset($_GET["filter"])){if($_GET["filter"] === "marketing"){echo "selected";}}?>>Marketing</option>
+            <option value="cg" <?php if(isset($_GET["filter"])){if($_GET["filter"] === "cg"){echo "selected";}}?>>Communication graphique</option>
         </select>
     </div>
 </div>
 
 
 <?php
-    if(!$result)
+    if(!$result AND isset($search))
     {
         echo "<div class='errormessage'><div class='alert alert-danger' role='alert'>Aucun résultat pour la recherche: $search</div></div>";
+    }
+    else if(!$result AND !isset($search))
+    {
+        echo "<div class='errormessage'><div class='alert alert-danger' role='alert'>Aucun résultat avec ce filtre</div></div>";
     }
 ?>
 
@@ -135,14 +197,6 @@ else
         $telephone = $student['telephone'];
         $id = $student['id'];
         $genre = $student['sexe'];
-        if($genre === "M")
-        {
-           $genre = "Homme"; 
-        }
-        else
-        {
-            $genre = "Femme";
-        }
 
         $choixspe = $student['choixspe'];
         if($choixspe === "dev")
@@ -176,3 +230,4 @@ else
         ?>
     </table>
 </div>
+<a href="add.php"><button type='button' class='btn btn-success addbutton'><i class='fas fa-plus'></i> Ajouer un contact</button><a>
