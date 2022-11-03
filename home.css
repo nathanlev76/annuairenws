@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Fira Sans";
+}
+
+body{
+    background-color: lightgray;
+}
+
+h1{
+    margin-top: 10px;
+    text-align: center;
+    font-family: "Fugaz One";
+    font-size: 2rem;
+}
+
+h1 img{
+    margin-right: 10px;
+}
+
+
+#testdiv{
+    margin-top: 10px;
+    height: 550px;
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border-radius: 15px;
+    overflow: auto;
+    scrollbar-color: black;
+}
+
+table{
+    text-align: center;
+}
+
+table button{
+    padding-top: 100px;
+}
+
+.searchbar{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.searchbar form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchbar input[type=search]{
+    width: 400px;
+    border: none;
+    border-radius: 6px;
+}
+
+.searchbar button{
+    border-radius: 10px;
+}
+
+.errormessage{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+

@@ -15,8 +15,8 @@ class Db
     }
 }
 
-class Sql extends Db{
-    public function sqlrequest($requete){
+class sqlRequest extends Db{
+    public function get($requete){
         $pdo = $this->connect();
 
         $sql = $requete;
@@ -26,6 +26,7 @@ class Sql extends Db{
             $request = $query->execute();
         }
         catch(PDOException $e){
+            echo $e;
             return False;
         }
     

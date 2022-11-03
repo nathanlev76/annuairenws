@@ -11,10 +11,11 @@ class Login extends Db
     }
 
     public function checkLogin(){
+        $loginResult = false;
         $mail = $this->mail;
         $password = $this->password;
-        $sql = new Sql();
-        $result = $sql->sqlrequest('SELECT * FROM users WHERE mail = "'.$mail.'"');
+        $sql = new sqlRequest();
+        $result = $sql->get('SELECT * FROM users WHERE mail = "'.$mail.'"');
         if(!empty($result))
         {
             foreach($result as $elem)
@@ -30,7 +31,6 @@ class Login extends Db
                 $loginResult = false;
             }
         }
-        
         return $loginResult;
     }
 }
