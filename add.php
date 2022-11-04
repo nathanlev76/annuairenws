@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Annuaire NWS: Modifier</title>
+    <title>Annuaire NWS: Ajouter</title>
     <link rel="icon" type="image/x-icon" href="assets/logo/nws_logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
@@ -14,7 +14,7 @@
 <a href="home.php"><h1><img src="assets/logo/nws_logo.png" height=55 width=55>Annuaire NWS</h1></a>
 <?php
 require_once("class/db.php");
-require_once("class/editcontact.php");
+require_once("class/addcontact.php");
 session_start();
 if (isset($_SESSION["mail"]))
 {
